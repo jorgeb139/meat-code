@@ -47,43 +47,30 @@ const useStyles = makeStyles(() => ({
 const Contactanos = () => {
   const classes = useStyles()
   const [fields, setFields] = useState([])
-  const [register, setRegister] = useState({
-    firstname: '',
-    lastname: '',
-    email: '',
-    phone: ''
-  });
-
+  
   useEffect(() => {
     (async () => {
       const elements = await axios.get(listOfFields)
       setFields(elements.data)
     })()
   }, [])
-
+  
   const { handleSubmit, control, reset, formState: { errors } } = useForm({
     resolver: yupResolver(ValidationSchema),
     mode: 'onChange'
   })
 
-  const handleInputChange = (e) => {
-    setRegister({
-      ...register,
-      [e.target.name] : e.target.value,
-    })
-  }
-
   const onSubmit = async(values) => {
     try {
-      await axios.post(newsletterURL, register)
+      console.log(values)
+      await axios.post(newsletterURL, values)
       Swal.fire({
         title: '¡Te has registrado con éxito!',
         text: 'Recibirás todas las novedades y beneficios únicos',
         icon: 'success',
         confirmButtonText: 'Excelente'
       })
-      reset({})
-      setRegister({
+      reset({
         firstname: '',
         lastname: '',
         email: '',
@@ -124,8 +111,6 @@ const Contactanos = () => {
                         className={classes.textField}
                         error={!!errors[nombre]}
                         helperText={errors[nombre] ? errors[nombre]?.message : ''}
-                        onChange={handleInputChange}
-                        value={register[nombre]}
                       />
                     </Grid>
                   )}

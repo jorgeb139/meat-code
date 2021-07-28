@@ -7,10 +7,10 @@ const ValidationSchema = yup.object().shape({
     .min(3, 'Debe tener un mínimo de 3 caracteres')
     .max(20, 'Debe tener un máximo de 20 caracteres'),
   lastname: yup.string()
-    .matches(/[a-zA-Z]/, 'Solo puede contener letras latinas.')
-    .required('El campo es requerido')
-    .min(3, 'Debe tener un mínimo de 3 caracteres')
-    .max(20, 'Debe tener un máximo de 20 caracteres'),
+  .required('El campo es requerido')
+  .min(3, 'Debe tener un mínimo de 3 caracteres')
+  .max(20, 'Debe tener un máximo de 20 caracteres')
+  .matches(/[a-zA-Z]/, 'Solo puede contener letras latinas.'),
     email: yup.string()
     .matches(/^\S*$/, 'No puede contener espacios en blanco.')
     .required('El campo es requerido')
